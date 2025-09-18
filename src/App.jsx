@@ -1,8 +1,35 @@
+import { Suspense } from "react";
 import "./App.css";
 import Batsman from "./Batsman";
 import Counter from "./Counter";
+import Users from "./Users";
+import Friends from "./Friends";
+import Posts from "./Posts";
+
+// direct api fetch using variable
+const fetchUsers = fetch("https://jsonplaceholder.typicode.com/users").then(
+	(res) => res.json()
+);
+
+// fetch using arrow function: async(), await method:
+const fetchFriends = async () => {
+	const res = await fetch("https://jsonplaceholder.typicode.com/users");
+	return res.json();
+};
+
+// fetch posts: async() wait:
+const fetchPosts = async () => {
+	const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+	return res.json();
+};
 
 function App() {
+	const postsPromise = fetchPosts();
+	console.log(postsPromise);
+
+	const friendsPromise = fetchFriends();
+	// console.log(friendsPromise);
+
 	//declaration function: click me(1)
 	function handleClickOne() {
 		alert("Clicked on one (1)");
@@ -22,6 +49,21 @@ function App() {
 	return (
 		<>
 			<h1>Vite + React</h1>
+
+			{/* Posts Component */}
+			<Suspense fallback={<p>Posts is coming......</p>}>
+				<Posts postsPromise={postsPromise}></Posts>
+			</Suspense>
+
+			{/* Friends Component */}
+			<Suspense fallback={<p>Waiting for the friends treat</p>}>
+				<Friends friendsPromise={friendsPromise}></Friends>
+			</Suspense>
+
+			{/* User Component */}
+			{/* <Suspense fallback={<h3>Loading....</h3>}>
+				<Users fetchUsers={fetchUsers}></Users>
+			</Suspense> */}
 
 			<Batsman></Batsman>
 			<Counter></Counter>
