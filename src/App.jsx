@@ -5,6 +5,14 @@ import Counter from "./Counter";
 import Users from "./Users";
 import Friends from "./Friends";
 import Posts from "./Posts";
+import Counter2 from "./Counter2";
+import Toggle from "./Toggle";
+import Users2 from "./Users2";
+
+// practice task:
+const fetchUser2 = fetch("https://jsonplaceholder.typicode.com/users").then(
+	(res) => res.json()
+);
 
 // direct api fetch using variable
 const fetchUsers = fetch("https://jsonplaceholder.typicode.com/users").then(
@@ -25,7 +33,7 @@ const fetchPosts = async () => {
 
 function App() {
 	const postsPromise = fetchPosts();
-	console.log(postsPromise);
+	// console.log(postsPromise);
 
 	const friendsPromise = fetchFriends();
 	// console.log(friendsPromise);
@@ -50,6 +58,14 @@ function App() {
 		<>
 			<h1>Vite + React</h1>
 
+			{/* practice: display User name, company name, city */}
+			<Suspense fallback={<p>Loading.....</p>}>
+				<Users2 fetchUser2={fetchUser2}></Users2>
+			</Suspense>
+
+			{/* practice task : toggle(show/hide) */}
+			<Toggle></Toggle>
+
 			{/* Posts Component */}
 			<Suspense fallback={<p>Posts is coming......</p>}>
 				<Posts postsPromise={postsPromise}></Posts>
@@ -67,6 +83,8 @@ function App() {
 
 			<Batsman></Batsman>
 			<Counter></Counter>
+			{/* practice task: useState() related */}
+			<Counter2></Counter2>
 
 			<button onClick={handleClickOne}>Click Me (1)</button>
 			<button onClick={handleClickTwo}>Click Me (2)</button>
