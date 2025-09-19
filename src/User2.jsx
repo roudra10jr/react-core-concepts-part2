@@ -3,9 +3,9 @@ export default function User2({ user }) {
 
 	return (
 		<div className="card1">
-			<h3>{user.name}</h3>
-			<p>{user.company.name}</p>
-			<p>{user.address.city}</p>
+			<h3>Name: {user.name}</h3>
+			<p>Company Name: {user.company.name}</p>
+			<p>City: {user.address.city}</p>
 		</div>
 	);
 }
